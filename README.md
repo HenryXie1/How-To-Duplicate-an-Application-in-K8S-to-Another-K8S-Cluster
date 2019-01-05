@@ -46,13 +46,13 @@ Backup all yaml files when we first created deployments, services...etc to objec
 ##### Data
 * If the target K8S cluster sits in the same OCI tenancy, Copying data would be easier as we can use backup or snapshot of block storage or file storage(NFS) to move data around. OCI even provides cross-region copy functions to help move data around the world.See [related note](https://blogs.oracle.com/cloud-infrastructure/copying-instances-or-images-across-regions)
 * If the target K8S cluster sits in a different tenancy or different cloud provider, we need to use object storage or local backup to move the data.Example below are the steps how we prepare data for a different tenancy.
- * We have Oracle Database 18c K8S statefulset running on OCI block storage ,same concept for file storage(NFS). Assume there is no physical standby (or no replica if it is mysql),otherwise we can use standby to prepare data
- * We prepare the DB statefulset creation yaml files. They are included in the above "K8S configuration yaml files" section
- * We shutdown DB via deleting statefulset. Outages may take 1-10 min depends how long snapshot or backup takes. If we use standby or replica as source, it should no outages.
- * Take a snapshot or backup of block storage or file Storage
- * We start DB via recreating statefulset via yaml file we prepared.
- * Mount block storage or file storage in a temporary VM instance
- * In the temporary VM, Upload datafiles,controlfiles,archivelogs,init, tns,sqlnet ...etc files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). Please refer how to config OCI CLI [link](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliconfigure.htm).OCI CLI preferred for file size larger than 128M.
+  * We have Oracle Database 18c K8S statefulset running on OCI block storage ,same concept for file storage(NFS). Assume there is no physical standby (or no replica if it is mysql),otherwise we can use standby to prepare data
+  * We prepare the DB statefulset creation yaml files. They are included in the above "K8S configuration yaml files" section
+  * We shutdown DB via deleting statefulset. Outages may take 1-10 min depends how long snapshot or backup takes. If we use standby or replica as source, it should no outages.
+  * Take a snapshot or backup of block storage or file Storage
+  * We start DB via recreating statefulset via yaml file we prepared.
+  * Mount block storage or file storage in a temporary VM instance
+  * In the temporary VM, Upload datafiles,controlfiles,archivelogs,init, tns,sqlnet ...etc files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). Please refer how to config OCI CLI [link](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliconfigure.htm).OCI CLI preferred for file size larger than 128M.
 
 
 ### Implementation on the Target
