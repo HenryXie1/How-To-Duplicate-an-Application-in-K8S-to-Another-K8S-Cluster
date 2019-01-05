@@ -8,12 +8,12 @@ We need to find a process how we can handle these requirements. In this note, we
 ##### Binaries
 Binaries would be the easiest part. Thanks to the portability of docker images. What we need to do is to save the images to tar files and move them to the target.
 * via OCI object storage.
- * Find which host has the livesql sandbox docker images via "kubectl get po -owide"
- * login the host, find the images via "docker images|grep lsql"
- * Save the MT images to tar file via "docker save -o /u01/build/livesql-sb-v4.tar  oracle/lsqlsb:v4"
- * Use the same concept to save the DB images
- * Upload tar files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). Please refer how to config OCI CLI [link](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliconfigure.htm).OCI CLI preferred for file size larger than 128M.
- ```
+  * Find which host has the livesql sandbox docker images via "kubectl get po -owide"
+  * login the host, find the images via "docker images|grep lsql"
+  * Save the MT images to tar file via "docker save -o /u01/build/livesql-sb-v4.tar  oracle/lsqlsb:v4"
+  * Use the same concept to save the DB images
+  * Upload tar files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). Please refer how to config OCI CLI [link](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliconfigure.htm).OCI CLI preferred for file size larger than 128M.
+  ```
  #oci os object put -bn livesql-sandbox --file test.tar
 Upload ID: 0b5a080e-290e-e099-e2ab-e107a69cae83
 Split file into 3 parts for upload.
@@ -23,7 +23,7 @@ Uploading object  [####################################]  100%
   "last-modified": "Fri, 04 Jan 2019 06:37:45 GMT",
   "opc-multipart-md5": "CSnEGa2z6mD+4Yf3LVEljA==-3"
 }
-```
+ ```
 * via OCIR(Oracle Cloud Infrastructure Registry) which is preferred, Push or Pull the updated images from OCIR of oracle OCI. Please refer [my another note](https://www.henryxieblogs.com/2018/10/how-to-pushpull-docker-images-into.html).
 ```
 docker login iad.ocir.io   (we use ashburn region)
