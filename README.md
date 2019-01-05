@@ -43,6 +43,10 @@ docker push <region-code>.ocir.io/<tenancy-name>/<repo-name>/<image-name>:<tag>
 
 ##### K8S Configuration yaml files
 Backup all yaml files when we first created deployments, services...etc to object storage or local laptop
+Or we can use kubectl -0 yaml to get it from Etcd
+```
+kubectl get svc livesqlsb-db-service -o yaml
+```
 ##### Data
 * If the target K8S cluster sits in the same OCI tenancy, Copying data would be easier as we can use backup or snapshot of block storage or file storage(NFS) to move data around. OCI even provides cross-region copy functions to help move data around the world.See [related note](https://blogs.oracle.com/cloud-infrastructure/copying-instances-or-images-across-regions)
 * If the target K8S cluster sits in a different tenancy or different cloud provider, we need to use object storage or local backup to move the data.Example below are the steps how we prepare data for a different tenancy.
