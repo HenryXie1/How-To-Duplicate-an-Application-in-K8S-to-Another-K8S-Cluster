@@ -62,11 +62,10 @@ Backup all yaml files when we first created deployments, services...etc to objec
  * login the host, download tar files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). OCI CLI preferred for file size larger than 128M.
  * Use "docker load -i <path to image tar file>" to load the images into local docker registry. Then we are able to use it in yaml file.
  * Be aware of which host we load the images, it will error out if K8S try to start the image on different hosts. To avoid that,use selector to request K8S to start apps on specific hosts
-* via OCIR which is preferred. Nothing we do here, later we start the images via
+* via OCIR which is preferred. Nothing we do here, K8S will download them if the images don't exist locally.Later we start the images via
 ```
 <region-code>.ocir.io/<tenancy-name>/<repo-name>/<image-name>:<tag>
 ```
-K8S will download them if the images don't exist locally.
 
 ##### K8S Configuration yaml files
 * Download the backup files from object storage or local laptop to the host which has configurated kubectl
