@@ -42,7 +42,7 @@ docker push <region-code>.ocir.io/<tenancy-name>/<repo-name>/<image-name>:<tag>
 ```
 
 ##### K8S Configuration yaml files
-Backup all yaml files when we first created deployments, services...etc to object storage or local laptop
+Backup all yaml files when we first created deployments, services,statefulset, pv,pvc ...etc to object storage or local laptop
 Or we can use kubectl -0 yaml to get it from Etcd
 ```
 kubectl get svc livesqlsb-db-service -o yaml
