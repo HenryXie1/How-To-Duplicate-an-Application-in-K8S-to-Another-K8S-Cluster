@@ -64,12 +64,12 @@ kubectl get svc livesqlsb-db-service -o yaml
 
 ### Implementation on the Target
 ##### Binaries
-* via OCI object storage.
- * Find which host we plan to run the images
- * login the host, download tar files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). OCI CLI preferred for file size larger than 128M.
- * Use "docker load -i <path to image tar file>" to load the images into local docker registry. Then we are able to use it in yaml file.
- * Be aware of which host we load the images, it will error out if K8S try to start the image on different hosts. To avoid that,use selector to request K8S to start apps on specific hosts
-* via OCIR which is preferred. Nothing we do here, K8S will download them if the images don't exist locally.Later we start the images via
+* Via OCI object storage.
+  * Find which host we plan to run the images
+  * login the host, download tar files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). OCI CLI preferred for file size larger than 128M.
+  * Use "docker load -i <path to image tar file>" to load the images into local docker registry. Then we are able to use it in yaml file.
+  * Be aware of which host we load the images, it will error out if K8S try to start the image on different hosts. To avoid that,use selector to request K8S to start apps on specific hosts
+* Via OCIR which is preferred. Nothing we do here, K8S will download them if the images don't exist locally.Later we start the images via
 ```
 <region-code>.ocir.io/<tenancy-name>/<repo-name>/<image-name>:<tag>
 ```
@@ -86,6 +86,6 @@ kubectl get svc livesqlsb-db-service -o yaml
 ```
 oci os object bulk-download -bn livesql-sandbox --download-dir /backup/movetoesps
 ```
-* All files should remain the same directory structure as the source as well as the file OS access permissions.
+* A ll files should remain the same directory structure as the source as well as the file OS access permissions.
 * We start DB and services via yaml files we prepared.
 * Use kubectl logs <pod name> to check any error
