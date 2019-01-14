@@ -54,7 +54,7 @@ kubectl get svc livesqlsb-db-service -o yaml
   * We prepare the DB pods creation yaml files. They are included in the above "K8S configuration yaml files" section
   * We shutdown DB via deleting deployment or statefulset...etc. Outages may take 1-10 min depends how long snapshot or backup takes. If we use standby or replica as source, it should no outages.
   * Depends where DB sits,take a snapshot of file storage. Refer [doc](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/managingsnapshots.htm). Or backup of block storage. Refer [doc](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumebackups.htm)
-  * We start DB via recreating pods via yaml file we prepared.
+  * We start source DB via recreating pods via yaml file we prepared.Outages end if source is not standby/replica
   * Mount block storage or file storage in a temporary VM instance
   * In the temporary VM, Upload datafiles,controlfiles,archivelogs,init, tns,sqlnet ...etc files to OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). Please refer how to config OCI CLI [link](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliconfigure.htm).OCI CLI preferred for file size larger than 128M. Use bulk-upload to upload a whole directory. Refer [doc](https://docs.cloud.oracle.com/iaas/tools/oci-cli/latest/oci_cli_docs/cmdref/os/object/bulk-upload.html)
   ```
