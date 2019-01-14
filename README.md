@@ -86,6 +86,6 @@ kubectl get svc livesqlsb-db-service -o yaml
 ```
 oci os object bulk-download -bn livesql-sandbox --download-dir /backup/movetoesps
 ```
-* A ll files should remain the same directory structure as the source as well as the file OS access permissions.
+* All files should remain the same directory structure as the source as well as the file OS access permissions.
 * We start DB and services via yaml files we prepared.
 * Use kubectl logs <pod name> to check any error
