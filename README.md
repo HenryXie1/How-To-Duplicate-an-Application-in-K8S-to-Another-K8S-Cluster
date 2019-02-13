@@ -84,7 +84,7 @@ kubectl get svc livesqlsb-db-service -o yaml
 * In the target nodes which we assign to run DB pods, we mount the block storage or file storage as the exact directories as we have on the source nodes.
 * Download datafiles,controlfiles,archivelogs,init, tns,sqlnet ...etc files from  OCI object storage via OCI SDK [examples](https://github.com/HenryXie1/Examples-of-Go-Work-With-Oracle-OCI-Object-Storage) or  [OCI CLI](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm). Please refer how to config OCI CLI [link](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliconfigure.htm).OCI CLI preferred for file size larger than 128M.
 ```
-oci os object bulk-download -bn livesql-sandbox --download-dir /backup/movetoesps
+oci os object bulk-download -bn livesql-sandbox --download-dir /u03
 ```
 * All files should remain the same directory structure as the source as well as the file OS access permissions.
 * We start DB and services via yaml files we prepared.
