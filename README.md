@@ -76,7 +76,7 @@ kubectl get svc livesqlsb-db-service -o yaml
 
 ##### K8S Configuration yaml files
 * Download the backup files from object storage or local laptop to the host which has configurated kubectl
-* Test we have correct access to OCIR
+* Add secret into K8S to login OCIR automatically. Please refer [note](https://www.henryxieblogs.com/2018/10/how-to-pushpull-docker-images-into.html)
 * Add correct nodeSelector label for hosts which will run DB Pods, refer [note](https://www.henryxieblogs.com/2018/12/how-to-move-existing-db-docker.html)
 * Modify the yaml files to use the correct OCIR images and correct nodeSelector
 
