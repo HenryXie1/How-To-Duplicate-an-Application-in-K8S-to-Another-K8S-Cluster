@@ -87,7 +87,11 @@ kubectl get svc livesqlsb-db-service -o yaml
 oci os object bulk-download -bn livesql-sandbox --download-dir /u03
 ```
 * All files should remain the same directory structure as the source as well as the file OS access permissions.
-* Create pv, pvc on stateful nodes via yaml files we prepared
+* With OKE, pv,pvc are created automatically via storageclass oci.Or we can create pv, pvc on stateful nodes via yaml files we prepared
+* Update pv persistentVolumeReclaimPolicy to be Retain to avoid any potential data loss.
+```
+kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+```
 * Create statefulsets or deployments via yaml files we prepared
 * Create db and apps services via yaml files we prepared.
 * Use kubectl logs <pod name> to check any error
